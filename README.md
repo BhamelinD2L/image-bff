@@ -1,2 +1,3 @@
 # image-bff
-A simple bff for hosting images
+Hosts a potato.
+run `npm run start` to host the potato.
