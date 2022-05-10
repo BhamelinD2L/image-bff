@@ -1,0 +1,5 @@
+stage: dev
+
+nodeEnvironment: production
+region: us-east-1
+
