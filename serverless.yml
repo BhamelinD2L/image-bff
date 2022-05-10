@@ -1,0 +1,56 @@
+service: image-bff
+
+provider:
+  name: aws
+  environment:
+    STAGE: ${self:provider.stage}
+    NODE_ENV: ${self:custom.envConfig.nodeEnvironment}
+    REGION: ${self:provider.region}
+  runtime: nodejs12.x
+  region: ${self:custom.envConfig.region}
+  stage: ${self:custom.envConfig.stage}
+  memorySize: 1024
+  timeout: 30
+  logRetentionInDays: 30 # Set the default RetentionInDays for a CloudWatch LogGroup
+  tracing: false
+
+plugins:
+  - serverless-domain-manager
+  - serverless-offline
+  - serverless-plugin-bind-deployment-id
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+custom:
+  includeDependencies:
+    always:
+      - src/app.js
+      - 'src/routers/**' # these files are loaded dynamically at runtime so serverless-plugin-include-dependencies won't find them; force them to be visited
+
+  envConfig: ${file(./serverless/env/${opt:env, 'local'}.yml)}
+  serverless-offline:
+    port: 3002
+  metricsNamespace: image-bff-${self:provider.stage}
+
+functions:
+  app:
+    handler: src/app.handler
+    memorySize: 1024
+    timeout: 30
+    events:
+      - http: ANY /
+      - http:
+          method: ANY
+          path: /{any+}
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Request-Id
+              - Accept
+            allowCredentials: true

@@ -1,0 +1,36 @@
+{
+  "name": "image-bff",
+  "version": "0.0.1",
+  "engines": {
+    "node": "12.13.1"
+  },
+  "description": "image-bff",
+  "main": "src/app.js",
+  "scripts": {
+    "bootstrap": "sls bootstrap --execute",
+    "create_domain": "sls create_domain",
+    "sls": "serverless",
+    "start": "serverless offline",
+    "undeploy": "sls remove"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BhamelinD2L/image-bff.git"
+  },
+  "author": "bhamelin",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "aws-sdk": "^2.287.0",
+    "koa": "^2.5.2",
+    "serverless-http": "^2.0.2"
+  },
+  "devDependencies": {
+    "serverless": "^1.83.3",
+    "serverless-domain-manager": "^3.3.0",
+    "serverless-offline": "^5.0.0",
+    "serverless-plugin-bind-deployment-id": "1.0.2",
+    "serverless-plugin-bootstrap": "^2.2.0",
+    "serverless-plugin-common-excludes": "^2.2.0",
+    "serverless-plugin-include-dependencies": "^3.1.1"
+  }
+}

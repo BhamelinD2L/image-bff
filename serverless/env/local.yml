@@ -1,0 +1,9 @@
+stage: local
+
+logLevel: debug
+nodeEnvironment: development
+region: us-east-1
+
+# Custom Domain Config
+customDomain:
+  enabled: false
